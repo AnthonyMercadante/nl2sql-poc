@@ -1,0 +1,33 @@
+✅ Beginner-Level Prompts:
+"List all projects that started in 2023."
+
+"Show the total cost of all equipment used in project ID 12."
+
+"Get names and emails of all contractors."
+
+"Find all documents uploaded by 'John Smith'."
+
+"How many inspections failed in 2024?"
+
+✅ Intermediate Prompts:
+"Which project had the highest energy score?"
+
+"Get the number of site visits per project."
+
+"List all equipment used in projects located in Toronto."
+
+"What’s the average unit cost of each material type?"
+
+"Show the latest design review status for each project."
+
+✅ Advanced (Cross-Table Joins):
+"List all projects with more than 5 site visits and a failed inspection."
+
+"Which contractors worked on projects that had equipment costing over $100,000?"
+
+"For each project, show the total material cost and energy report score."
+
+"List projects where the design review status is 'rejected' and inspection result is 'fail'."
+
+"Show a summary of all equipment types used by project, including total count and cost."
+

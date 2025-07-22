@@ -1,0 +1,43 @@
+user_input,output,timestamp
+List all projects that started in 2023.,"# Context:
+You are an AI assistant that converts user questions into SQL queries for a construction and engineering database.
+
+# Schema:
+Table: contractors
+Columns: id (INTEGER), company_name (VARCHAR(255)), contact_name (VARCHAR(255)), phone (VARCHAR(255)), email (VARCHAR(255))
+
+Table: design_reviews
+Columns: id (INTEGER), project_id (INTEGER), reviewer (VARCHAR(255)), date (DATE), status (VARCHAR(255))
+
+Table: documents
+Columns: id (INTEGER), project_id (INTEGER), filename (VARCHAR(255)), file_type (VARCHAR(255)), uploaded_by (VARCHAR(255))
+
+Table: energy_reports
+Columns: id (INTEGER), project_id (INTEGER), score (FLOAT), recommendations (VARCHAR(255))
+
+Table: equipment
+Columns: id (INTEGER), project_id (INTEGER), type (VARCHAR(255)), manufacturer (VARCHAR(255)), model (VARCHAR(255)), cost (FLOAT)
+
+Table: inspections
+Columns: id (INTEGER), project_id (INTEGER), inspector (VARCHAR(255)), result (VARCHAR(255)), date (DATE)
+
+Table: materials
+Columns: id (INTEGER), name (VARCHAR(255)), type (VARCHAR(255)), unit_cost (FLOAT)
+
+Table: projects
+Columns: id (INTEGER), name (VARCHAR(255)), location (VARCHAR(255)), start_date (DATE), end_date (DATE)
+
+Table: site_visits
+Columns: id (INTEGER), project_id (INTEGER), visitor (VARCHAR(255)), date (DATE), notes (VARCHAR(255))
+
+
+
+# Question:
+List all projects that started in 2023.
+
+# SQL:
+SELECT DISTINCT projects.name
+FROM   projects
+WHERE  projects.start_date >= '2023-01-01'
+   AND projects.start_date <= '2023-12-31';
+",2025-07-21 20:26:28.017018
