@@ -1,20 +1,34 @@
 import gradio as gr
 from app.db.schema import extract_schema
-from app.model.local_model import build_prompt, generate_sql, execute_sql_query
+from app.model.llm     import nl_to_sql
+from app.config        import settings
+from sqlalchemy        import create_engine, text
 
 schema = extract_schema()
+engine = create_engine(settings.DATABASE_URL)
 
-def handle_input(user_text):
-    prompt = build_prompt(schema, user_text)
-    sql    = generate_sql(prompt)
-    hdrs, rows = execute_sql_query(sql)
-    return sql, gr.Dataframe(headers=hdrs, value=rows)
+def handle_query(question: str):
+    sql = nl_to_sql(schema, question)
+    # run the SQL and fetch rows
+    try:
+        with engine.begin() as conn:
+            rows = [tuple(r) for r in conn.execute(text(sql))]
+            headers = rows[0].keys() if rows else []
+            rows    = [tuple(r) for r in rows]
+    except Exception as exc:
+        headers, rows = ["Error"], [[str(exc)]]
+    return sql, gr.Dataframe(headers=headers, value=rows)
 
 def launch_ui():
     gr.Interface(
-        fn       = handle_input,
-        inputs   = gr.Textbox(lines=2, placeholder="Ask in plain English…"),
-        outputs  = [gr.Textbox(label="Generated SQL"),
-                    gr.Dataframe(label="Query Results")],
-        title    = "NL2SQL Chatbot"
+        fn        = handle_query,
+        inputs    = gr.Textbox(lines=2, label="Ask in plain English…"),
+        outputs   = [
+            gr.Code(label="Generated SQL", language="sql"),
+            gr.Dataframe(label="Query Results")
+        ],
+        title     = "NL2SQL Chatbot"
     ).launch()
+
+if __name__ == "__main__":
+    launch_ui()
