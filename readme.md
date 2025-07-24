@@ -34,7 +34,7 @@ It runs **locally** (no OpenAI key) using Defog’s **[`sqlcoder‑7b‑2`](http
 
 ```bash
 # clone & enter
-git clone https://github.com/anthonymercadante/nl2sql.git
+git clone https://github.com/anthonymercadante/nl2sql-poc.git
 cd nl2sql
 
 # install python deps (GPU users: install torch+cu118/cu121 wheel manually)
